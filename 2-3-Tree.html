@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>2-3 Tree Demo</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+body { font-family: Inter, Arial, sans-serif; padding:20px; background:linear-gradient(180deg,#eef2f7,#f8fafc); color:#1a1c20; }
+
+h1 { margin-bottom:12px; font-size:28px; font-weight:600; color:#2b3a55; }
+
+.controls {
+margin-bottom:20px;
+display:flex;
+flex-wrap:wrap;
+gap:12px;
+background:white;
+padding:16px;
+border-radius:12px;
+box-shadow:0 2px 6px rgba(0,0,0,0.07);
+}
+
+input[type=number]{
+width:130px; padding:10px 12px; border:1px solid #cdd5e0; border-radius:8px; font-size:14px;
+transition:0.2s; background:#fdfdfd;
+}
+input[type=number]:focus{ outline:none; border-color:#7a9cff; box-shadow:0 0 0 3px rgba(122,156,255,0.25); }
+
+button{
+padding:10px 16px; border:none; border-radius:8px; background:#4b6fff; color:white;
+font-size:14px; cursor:pointer; transition:0.2s ease; font-weight:500;
+}
+button:hover{ background:#3c59d6; }
+button:active{ transform:scale(0.97); }
+button.clear-btn{ background:#ef4444; }
+button.clear-btn:hover{ background:#c53030; }
+
+canvas{ width:100%; height:560px; border:1px solid #c8d0e7; background:white; border-radius:12px; box-shadow:0 2px 6px rgba(0,0,0,0.05); }
+
+#log{ margin-top:14px; white-space:pre-wrap; background:white; padding:12px; border-radius:12px; border:1px solid #e2e8f0; box-shadow:0 2px 4px rgba(0,0,0,0.04); font-size:14px; }
+</style>
+</head>
+<body>
+<h1>2–3 Tree Demo</h1>
+<div class="controls">
+<input id="insertKey" type="number" placeholder="Insert key" />
+<button id="insertBtn">Insert</button>
+
+<input id="deleteKey" type="number" placeholder="Delete key" />
+<button id="deleteBtn">Delete</button>
+
+<input id="searchKey" type="number" placeholder="Search key" />
+<button id="searchBtn">Search</button>
+
+<button onclick="clearAll()" class="clear-btn">Clear All</button>
+</div>
+
+<canvas id="treeCanvas" width="1200" height="560"></canvas>
+<div id="log">Log will appear here.</div>
+
+<script>
+class Node {
+  constructor(isLeaf = false) {
+    this.isLeaf = isLeaf;
+    this.keys = [];      // for leaves: 0 or 1 key; for internals: separators (children.length - 1)
+    this.children = [];  // for leaves unused (except linked list via .next)
+    this.next = null;    // leaf linked list
+  }
+}
+
+class TwoThreeTree {
+  constructor() {
+    this.root = new Node(true);
+  }
+
+  // find leaf and path (path excludes the leaf itself: path[0] = root if root internal)
+  _findLeafAndPath(key) {
+    const path = [];
+    let node = this.root;
+    while (!node.isLeaf) {
+      path.push(node);
+      let i = 0;
+      while (i < node.keys.length && key > node.keys[i]) i++;
+      node = node.children[i];
+    }
+    return {leaf: node, path};
+  }
+
+  // largest element in subtree
+  _getMax(node) {
+    while (!node.isLeaf) node = node.children[node.children.length - 1];
+    return node.keys[node.keys.length - 1];
+  }
+
+  // recompute separators for a node (and recursively for children if requested)
+  _recomputeKeys(node) {
+    if (node.isLeaf) return;
+    node.keys = node.children.slice(0, -1).map(ch => this._getMax(ch));
+  }
+
+  // Walk tree and recompute keys for all internal nodes (post-order)
+  _recomputeAllKeys(node = this.root) {
+    if (node.isLeaf) return;
+    for (const ch of node.children) this._recomputeAllKeys(ch);
+    node.keys = node.children.slice(0, -1).map(ch => this._getMax(ch));
+  }
+
+  search(key) {
+    const {leaf} = this._findLeafAndPath(key);
+    return leaf.keys.length>0 && leaf.keys[0] === key;
+  }
+
+  insert(key) {
+    if (this.search(key)) return false; // no duplicates
+
+    const {leaf, path} = this._findLeafAndPath(key);
+
+    // place directly if leaf empty
+    if (leaf.keys.length === 0) {
+      leaf.keys = [key];
+      // after change, recompute separators on path
+      for (let i = path.length - 1; i >= 0; i--) {
+        this._recomputeKeys(path[i]);
+      }
+      return true;
+    }
+
+    // split leaf into two
+    const existing = leaf.keys[0];
+    const leftLeaf = new Node(true);
+    const rightLeaf = new Node(true);
+    if (key <= existing) { leftLeaf.keys = [key]; rightLeaf.keys = [existing]; }
+    else { leftLeaf.keys = [existing]; rightLeaf.keys = [key]; }
+    leftLeaf.next = rightLeaf;
+    rightLeaf.next = leaf.next;
+
+    if (path.length === 0) {
+      // leaf was root -> new root
+      const newRoot = new Node(false);
+      newRoot.children = [leftLeaf, rightLeaf];
+      newRoot.keys = [this._getMax(leftLeaf)];
+      this.root = newRoot;
+      return true;
+    }
+
+    // replace leaf in parent
+    let parent = path[path.length - 1];
+    let idx = parent.children.indexOf(leaf);
+    if (idx === -1) {
+      // fallback: linear search (shouldn't normally happen)
+      idx = 0; while (idx < parent.children.length && parent.children[idx] !== leaf) idx++;
+      if (idx === parent.children.length) {
+        console.warn('insert: parent-child link broken');
+        return false;
+      }
+    }
+    parent.children.splice(idx, 1, leftLeaf, rightLeaf);
+
+    // recompute keys up the path (we'll also handle splits)
+    this._fixOverflowUpwards(path);
+    return true;
+  }
+
+  // Split any overflowing nodes on path bottom-up and recompute keys
+  _fixOverflowUpwards(path) {
+    for (let p = path.length - 1; p >= 0; p--) {
+      const node = path[p];
+
+      while (node.children.length > 3) {
+        const C = node.children;
+        const left = new Node(false);
+        const right = new Node(false);
+        left.children = C.slice(0, 2);
+        right.children = C.slice(2);
+
+        // link leaf .next pointers if children are leaves
+        if (left.children[left.children.length - 1].isLeaf && right.children[0].isLeaf) {
+          left.children[left.children.length - 1].next = right.children[0];
+        }
+
+        if (p === 0 && node === this.root) {
+          const newRoot = new Node(false);
+          newRoot.children = [left, right];
+          newRoot.keys = [this._getMax(left)];
+          this.root = newRoot;
+          break;
+        } else {
+          const parent = path[p - 1];
+          const nodeIdx = parent.children.indexOf(node);
+          if (nodeIdx === -1) {
+            let found = -1;
+            for (let i=0;i<parent.children.length;i++) if (parent.children[i] === node) { found = i; break; }
+            if (found === -1) throw new Error('Parent/child mismatch during split');
+          }
+          parent.children.splice(nodeIdx, 1, left, right);
+          break;
+        }
+      }
+
+      this._recomputeKeys(node);
+    }
+
+    // Full pass to ensure no node anywhere has >3 children
+    let changed = true;
+    while (changed) {
+      changed = false;
+      const stack = [this.root];
+      const parents = [null];
+      const idxs = [null];
+      while (stack.length) {
+        const cur = stack.pop();
+        const par = parents.pop();
+        const parIdx = idxs.pop();
+        if (!cur) continue;
+        if (!cur.isLeaf && cur.children.length > 3) {
+          const C = cur.children;
+          const left = new Node(false);
+          const right = new Node(false);
+          left.children = C.slice(0,2);
+          right.children = C.slice(2);
+          if (left.children[left.children.length-1].isLeaf && right.children[0].isLeaf) {
+            left.children[left.children.length-1].next = right.children[0];
+          }
+          if (cur === this.root) {
+            const newRoot = new Node(false);
+            newRoot.children = [left, right];
+            newRoot.keys = [this._getMax(left)];
+            this.root = newRoot;
+          } else {
+            par.children.splice(parIdx, 1, left, right);
+          }
+          changed = true;
+          break;
+        } else {
+          if (!cur.isLeaf) {
+            for (let i = cur.children.length - 1; i >= 0; i--) {
+              stack.push(cur.children[i]);
+              parents.push(cur);
+              idxs.push(i);
+            }
+          }
+        }
+      }
+      if (changed) this._recomputeAllKeys();
+    }
+
+    this._recomputeAllKeys();
+  }
+
+  // delete key (improved, consistent with 2-3 tree invariants)
+  delete(key) {
+    const { leaf, path } = this._findLeafAndPath(key);
+    if (!leaf.keys.includes(key)) return false;
+
+    // if root is the only leaf
+    if (path.length === 0) {
+      // root is leaf
+      this.root = new Node(true);
+      this._recomputeAllKeys();
+      return true;
+    }
+
+    // remove the leaf node from its parent
+    const parent = path[path.length - 1];
+    const idxInParent = parent.children.indexOf(leaf);
+    if (idxInParent === -1) return false; // should not happen
+    parent.children.splice(idxInParent, 1);
+
+    // fix .next for leaf linked list: remove leaf by connecting previous leaf to next
+    // find previous leaf by scanning parent's children to left or walking from leftmost
+    // simple approach: recompute leaf chain from leftmost leaf
+    const leftmost = this._leftmostLeaf(this.root);
+    // rebuild leaf .next links in-order
+    let prev = null;
+    this._forEachLeaf(l => { if (prev) prev.next = l; prev = l; });
+    if (prev) prev.next = null;
+
+    // Now fix underflows bottom-up
+    for (let p = path.length - 1; p >= 0; p--) {
+      const node = path[p];
+      // if node has at least 2 children it's fine
+      if (node.children.length >= 2) {
+        this._recomputeKeys(node);
+        continue;
+      }
+
+      // node has <2 children -> underflow
+      if (p === 0) {
+        // node is root
+        if (node.children.length === 1) this.root = node.children[0];
+        else if (node.children.length === 0) this.root = new Node(true);
+        break;
+      }
+
+      const parentNode = path[p - 1];
+      const idx = parentNode.children.indexOf(node);
+
+      // try to borrow from left sibling
+      let leftSibling = idx > 0 ? parentNode.children[idx - 1] : null;
+      let rightSibling = idx < parentNode.children.length - 1 ? parentNode.children[idx + 1] : null;
+
+      if (leftSibling && leftSibling.children.length > 2) {
+        // move last child of leftSibling to front of node
+        const moved = leftSibling.children.pop();
+        node.children.unshift(moved);
+        // maintain leaf.next if moving leaves
+        if (moved.isLeaf && node.children[1] && node.children[1].isLeaf) {
+          moved.next = node.children[1];
+        }
+        this._recomputeKeys(leftSibling);
+        this._recomputeKeys(node);
+      } else if (rightSibling && rightSibling.children.length > 2) {
+        // move first child of rightSibling to end of node
+        const moved = rightSibling.children.shift();
+        node.children.push(moved);
+        if (node.children[node.children.length-2] && node.children[node.children.length-2].isLeaf && moved.isLeaf) {
+          node.children[node.children.length-2].next = moved;
+        }
+        this._recomputeKeys(rightSibling);
+        this._recomputeKeys(node);
+      } else {
+        // merge with sibling
+        if (leftSibling) {
+          // merge node into leftSibling
+          leftSibling.children = leftSibling.children.concat(node.children);
+          // fix next pointers
+          if (leftSibling.children[leftSibling.children.length - 2] && leftSibling.children[leftSibling.children.length - 1].isLeaf) {
+            leftSibling.children[leftSibling.children.length - 2].next = leftSibling.children[leftSibling.children.length - 1];
+          }
+          // remove node from parent
+          parentNode.children.splice(idx, 1);
+          this._recomputeKeys(leftSibling);
+        } else if (rightSibling) {
+          // merge rightSibling into node
+          node.children = node.children.concat(rightSibling.children);
+          // remove rightSibling from parent
+          parentNode.children.splice(idx + 1, 1);
+          this._recomputeKeys(node);
+        }
+        // after merge, parentNode may underflow on next iteration
+      }
+
+      // continue upwards; parent will be checked in next loop iteration
+    }
+
+    // final cleanup: if root has single child collapse
+    if (!this.root.isLeaf && this.root.children.length === 1) this.root = this.root.children[0];
+
+    this._recomputeAllKeys();
+    return true;
+  }
+
+  // utility to get leftmost leaf
+  _leftmostLeaf(node) {
+    while (!node.isLeaf) node = node.children[0];
+    return node;
+  }
+
+  // iterate leaves in order, calling fn(leaf)
+  _forEachLeaf(fn) {
+    const stack = [this.root];
+    // find leftmost leaf
+    while (!stack[stack.length - 1].isLeaf) {
+      const n = stack[stack.length - 1];
+      stack.push(n.children[0]);
+    }
+    // now in-order traversal using next pointers might not be built; do an explicit traversal
+    const leaves = [];
+    function dfs(n) {
+      if (n.isLeaf) { leaves.push(n); return; }
+      for (const c of n.children) dfs(c);
+    }
+    dfs(this.root);
+    for (const l of leaves) fn(l);
+  }
+
+  // utility to find parent and index of a node (returns null if not found)
+  _findParent(current, target) {
+    if (current === target) return null;
+    if (!current.isLeaf) {
+      for (let i=0;i<current.children.length;i++){
+        if (current.children[i] === target) return {parent: current, index: i};
+        const res = this._findParent(current.children[i], target);
+        if (res) return res;
+      }
+    }
+    return null;
+  }
+}
+
+// ---------------- Drawing ----------------
+const canvas = document.getElementById('treeCanvas');
+const ctx = canvas.getContext('2d');
+
+function draw(tree) {
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  ctx.font = '14px Inter, Arial'; ctx.textBaseline = 'middle';
+
+  const levels = [];
+  function dfs(n, depth=0){
+    if(!levels[depth]) levels[depth]=[];
+    levels[depth].push(n);
+    if(!n.isLeaf) n.children.forEach(c=>dfs(c, depth+1));
+  }
+  dfs(tree.root,0);
+
+  const nodeW = 60, nodeH = 34, levelH=100, hGap=20;
+  for(let d=0; d<levels.length; d++){
+    const row = levels[d];
+    let totalWidth = 0;
+    for(const n of row) totalWidth += (Math.max(1, (n.isLeaf ? 1 : n.keys.length)) * nodeW + hGap);
+    let x = Math.max(20, (canvas.width - totalWidth)/2);
+    for(const node of row){ node._x = x; node._y = 20 + d*levelH; x += Math.max(1, (node.isLeaf ? 1 : node.keys.length)) * nodeW + hGap; }
+  }
+
+  function drawConnect(n){
+    if(!n.isLeaf){
+      for(const c of n.children){
+        ctx.beginPath(); ctx.moveTo(n._x + (Math.max(1, n.keys.length) * nodeW)/2, n._y + nodeH);
+        ctx.lineTo(c._x + (Math.max(1, (c.isLeaf?1:c.keys.length)) * nodeW)/2, c._y);
+        ctx.strokeStyle='#bbb'; ctx.stroke();
+        drawConnect(c);
+      }
+    }
+  }
+  drawConnect(tree.root);
+
+  function drawNode(node){
+    const x=node._x, y=node._y; const w=(Math.max(1, (node.isLeaf ? 1 : node.keys.length)) * nodeW), h=nodeH;
+    ctx.fillStyle='#fff'; ctx.strokeStyle='#2b3a55'; roundRect(ctx,x,y,w,h,6); ctx.fill(); ctx.stroke(); ctx.fillStyle = 'black';
+    if(node.isLeaf){
+      if(node.keys.length) ctx.fillText(String(node.keys[0]), x+12, y+h/2);
+      else ctx.fillText('·', x+12, y+h/2);
+    } else {
+      for(let i=0;i<node.keys.length;i++){ ctx.fillText(String(node.keys[i]), x+12 + i*nodeW, y+h/2); }
+    }
+    if(!node.isLeaf) node.children.forEach(drawNode);
+  }
+  drawNode(tree.root);
+}
+function roundRect(ctx,x,y,w,h,r){ ctx.beginPath(); ctx.moveTo(x+r,y); ctx.arcTo(x+w,y,x+w,y+h,r); ctx.arcTo(x+w,y+h,x,y+h,r); ctx.arcTo(x,y+h,x,y,r); ctx.arcTo(x,y,x+w,y,r); ctx.closePath(); }
+
+// ---------------- Demo wiring & tests ----------------
+const tree = new TwoThreeTree();
+const logEl = document.getElementById('log');
+function log(msg){ logEl.textContent += msg + '\n'; }
+
+function demoInsert(){ const input = document.getElementById('insertKey'); const v=parseInt(input.value); if(isNaN(v)) return alert('Enter number'); const ok = tree.insert(v); draw(tree); log((ok?'Inserted ':'Failed to insert ') + v); input.value = ''; input.focus(); }
+function demoDelete(){ const input = document.getElementById('deleteKey'); const v=parseInt(input.value); if(isNaN(v)) return alert('Enter number'); const ok=tree.delete(v); draw(tree); log((ok?'Deleted ':'Not found ')+v); input.value = ''; input.focus(); }
+function demoSearch(){ const input = document.getElementById('searchKey'); const v=parseInt(input.value); if(isNaN(v)) return alert('Enter number'); const f=tree.search(v); alert(f?('Found '+v):('Not found '+v)); log('Search '+v+': '+(f?'FOUND':'NOT FOUND')); input.value = ''; input.focus(); }
+
+function clearAll(){
+    tree.root = new Node(true);
+    draw(tree);
+    logEl.textContent = "Cleared all.";
+}
+
+// attach buttons
+document.getElementById('insertBtn').addEventListener('click', demoInsert);
+document.getElementById('deleteBtn').addEventListener('click', demoDelete);
+document.getElementById('searchBtn').addEventListener('click', demoSearch);
+
+// listen on enter and clear field after action
+document.getElementById('insertKey').addEventListener('keydown', function(e){ if(e.key==='Enter'){ demoInsert(); } });
+document.getElementById('deleteKey').addEventListener('keydown', function(e){ if(e.key === 'Enter'){ demoDelete(); }});
+document.getElementById('searchKey').addEventListener('keydown', function(e){ if(e.key === 'Enter'){ demoSearch(); }});
+
+// initial
+draw(tree);
+window.TwoThreeTree = TwoThreeTree; window.tree = tree; window.draw = draw; window.demoInsert = demoInsert; window.demoDelete = demoDelete; window.demoSearch = demoSearch;
+</script>
+</body>
+</html>
