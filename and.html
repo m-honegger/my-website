@@ -1,164 +1,138 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Exercise Sessions – Michelle Honegger</title>
-    <title>Michael Honegger – Neuroinformatics & Machine Learning</title>
-    <meta name="description" content="Personal website of Michelle Honegger, student at ETH Zürich focusing on Algorithms and Datastructures.">
+  <title>Materials – Algorithms & Data Structures</title>
+  <meta name="description" content="Exercise materials for Algorithms and Data Structures at ETH Zürich – Michelle Honegger.">
   <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Inter', sans-serif; }
+    .glass { background: rgba(255, 255, 255, 0.8); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(0,0,0,0.05); }
+    .card-hover:hover { transform: translateY(-2px); transition: all 0.2s ease; }
+  </style>
 </head>
-<body class="bg-gray-50 text-gray-800 font-sans">
-  <!-- Header -->
-  <header class="bg-sky-600 text-white p-4 md:p-6 shadow-md">
-    <div class="max-w-5xl mx-auto flex flex-col md:flex-row md:justify-between md:items-center gap-4">
-      <h1 class="text-xl md:text-2xl font-bold text-center md:text-left">Exercise Sessions – Michelle Honegger</h1>
-      <nav class="flex flex-wrap justify-center gap-3 text-sm md:text-base">
-        <a href="index.html" class="hover:underline">About</a>
-        <a href="index.html" class="hover:underline">Courses</a>
-        <a href="#materials" class="hover:underline">Materials</a>
-        <a href="#links" class="hover:underline">Links</a>
-        <a href="index.html" class="hover:underline">Contact</a>
+<body class="bg-slate-50 text-slate-800 leading-relaxed">
+
+  <header class="fixed top-0 w-full z-50 glass">
+    <div class="max-w-5xl mx-auto px-6 h-16 flex items-center justify-between">
+      <div class="flex items-center gap-4">
+        <a href="index.html" class="text-indigo-600 hover:text-indigo-800 transition-colors flex items-center font-bold">
+          <svg class="w-5 h-5 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 19l-7-7 7-7"></path></svg>
+          Michelle
+        </a>
+        <span class="text-slate-300">|</span>
+        <h1 class="font-semibold text-slate-900 truncate">AnD Materials</h1>
+      </div>
+      <nav class="hidden md:flex gap-6 text-sm font-semibold text-slate-500">
+        <a href="#materials" class="hover:text-indigo-600">Weekly</a>
+        <a href="#resources" class="hover:text-indigo-600">Code & Script</a>
+        <a href="#links" class="hover:text-indigo-600">Links</a>
       </nav>
     </div>
   </header>
-  
-  <section id="materials" class="bg-white py-8 shadow-inner">
-    <div class="max-w-5xl mx-auto p-6">
-      <h2 class="text-lg md:text-xl font-semibold mb-4 text-center md:text-left">Materials of Sessions</h2>
-      <div class="space-y-4">
-        <article class="p-4 border rounded-xl bg-gray-50">
-          <h3 class="font-semibold">Week 1: Introduction & Induction</h3>
-          <p class="text-sm text-gray-700">Induction, Asymptotic notation, Runtime basics, log-rules</p>
-          <a href="AnD_1_25.pdf" class="text-sky-600 hover:underline">Slides</a><br>
-          <a href="AnD_Notes1.pdf" class="text-sky-600 hover:underline">Notes</a>
-        </article>
-        <article class="p-4 border rounded-xl bg-gray-50">
-          <h3 class="font-semibold">Week 2: O-Notation</h3>
-          <p class="text-sm text-gray-700">O, Omega, Theta Notation, Summation Rules</p>
-          <a href="AnD_2_25.pdf" class="text-sky-600 hover:underline">Slides</a><br>
-          <a href="AnD_Notes_2_25.pdf" class="text-sky-600 hover:underline">Notes</a>
-          <!--<a href="game.html" class="text-sky-600 hover:underline">Guess The Password</a>-->
-        </article>
-        <article class="p-4 border rounded-xl bg-gray-50">
-          <h3 class="font-semibold">Week 3: One Problem - Many Solutions</h3>
-          <p class="text-sm text-gray-700">Maximum Subarray Sum</p>
-          <a href="AnD_3_25.pdf" class="text-sky-600 hover:underline">Slides</a><br>
-          <a href="AnD_Notes_3_25.pdf" class="text-sky-600 hover:underline">Notes</a>
-        </article>
-        <article class="p-4 border rounded-xl bg-gray-50" id="week4">
-          <h3 class="font-semibold">Week 4: Searching & Sorting</h3>
-          <p class="text-sm text-gray-700">linear-, binary-search & bubble-, insertion-, selection-, merge-sort</p>
-            <a href="AnD_4_25.pdf" class="text-sky-600 hover:underline">Slides</a><br>
-            <a href="AnD_Notes4.pdf" class="text-sky-600 hover:underline">Notes</a>
-        </article>
-        <article class="p-4 border rounded-xl bg-gray-50" id='week5'>
-          <h3 class="font-semibold">Week 5: Sorting Cont'd, Datastructures</h3>
-          <p class="text-sm text-gray-700">Quick- & Heap-sort, Heap, (doubly-linked-) List, Array, Stack & (Priority-) Queue</p>
-          <div id="week5-links">
-            <a href="AnD_5_25.pdf" class="text-sky-600 hover:underline">Slides</a><br>
-            <a href="AnD_Notes5_25.pdf" class="text-sky-600 hover:underline">Notes</a>
+
+  <section class="pt-32 pb-12 px-6">
+    <div class="max-w-5xl mx-auto">
+      <nav class="flex mb-4 text-xs font-bold uppercase tracking-widest text-indigo-500">
+        <span>Spring Semester Archive</span>
+      </nav>
+      <h1 class="text-3xl md:text-4xl font-bold text-slate-900 mb-4">Algorithms & Data Structures</h1>
+      <p class="text-slate-600 max-w-2xl text-lg">
+        This page contains the slides, notes, and code demos from my previous sessions as a Teaching Assistant for AnD.
+      </p>
+    </div>
+  </section>
+
+  <section id="materials" class="py-12 px-6">
+    <div class="max-w-5xl mx-auto">
+      <h2 class="text-xl font-bold mb-6 flex items-center gap-2">
+        <svg class="w-5 h-5 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+        Weekly Sessions
+      </h2>
+      
+      <div class="grid gap-4">
+        <article class="p-5 bg-white border border-slate-200 rounded-2xl shadow-sm card-hover flex flex-col md:flex-row md:items-center justify-between gap-4">
+          <div>
+            <h3 class="font-bold text-slate-900 text-lg">Week 1: Introduction & Induction</h3>
+            <p class="text-sm text-slate-500">Induction, Asymptotic notation, Runtime basics, log-rules</p>
+          </div>
+          <div class="flex gap-2">
+            <a href="AnD_1_25.pdf" class="px-4 py-2 bg-indigo-50 text-indigo-700 rounded-lg text-sm font-bold hover:bg-indigo-100">Slides</a>
+            <a href="AnD_Notes1.pdf" class="px-4 py-2 bg-slate-100 text-slate-700 rounded-lg text-sm font-bold hover:bg-slate-200">Notes</a>
           </div>
         </article>
-        <article class="p-4 border rounded-xl bg-gray-50" id='week6'>
-          <h3 class="font-semibold">Week 6: Datastructures Cont'd, DP Probelms</h3>
-          <p class="text-sm text-gray-700">Binary Search Trees & 2-3 Trees, Fibonacci, MSS, Jump Game, LCS & Edit Distance</p>
-          <div id="week6-links">
-            <a href="AnD_6_25.pdf" class="text-sky-600 hover:underline">Slides</a><br>
-            <a href="AnD_Notes6_25.pdf" class="text-sky-600 hover:underline">Notes</a>
+
+        <article class="p-5 bg-white border border-slate-200 rounded-2xl shadow-sm card-hover flex flex-col md:flex-row md:items-center justify-between gap-4">
+          <div>
+            <h3 class="font-bold text-slate-900 text-lg">Week 2: O-Notation</h3>
+            <p class="text-sm text-slate-500">O, Omega, Theta Notation, Summation Rules</p>
+          </div>
+          <div class="flex gap-2">
+            <a href="AnD_2_25.pdf" class="px-4 py-2 bg-indigo-50 text-indigo-700 rounded-lg text-sm font-bold hover:bg-indigo-100">Slides</a>
+            <a href="AnD_Notes_2_25.pdf" class="px-4 py-2 bg-slate-100 text-slate-700 rounded-lg text-sm font-bold hover:bg-slate-200">Notes</a>
           </div>
         </article>
-        <article class="p-4 border rounded-xl bg-gray-50" id='week7'>
-          <h3 class="font-semibold">Week 7: Dynamic Programming Cont'd</h3>
-          <p class="text-sm text-gray-700">Subset Sum, Knapsack and Longest Ascending Subsequence</p>
-          <div id="week7-links">
-            <a href="AnD_7_25.pdf" class="text-sky-600 hover:underline">Slides</a><br>
-            <a href="AnD_Notes7_25.pdf" class="text-sky-600 hover:underline">Notes</a>
+
+        <article class="p-5 bg-white border border-slate-200 rounded-2xl shadow-sm card-hover flex flex-col md:flex-row md:items-center justify-between gap-4">
+          <div>
+            <h3 class="font-bold text-slate-900 text-lg">Week 3: One Problem - Many Solutions</h3>
+            <p class="text-sm text-slate-500">Maximum Subarray Sum</p>
+          </div>
+          <div class="flex gap-2">
+            <a href="AnD_3_25.pdf" class="px-4 py-2 bg-indigo-50 text-indigo-700 rounded-lg text-sm font-bold hover:bg-indigo-100">Slides</a>
+            <a href="AnD_Notes_3_25.pdf" class="px-4 py-2 bg-slate-100 text-slate-700 rounded-lg text-sm font-bold hover:bg-slate-200">Notes</a>
           </div>
         </article>
-        <article class="p-4 border rounded-xl bg-gray-50" id='week8'>
-          <h3 class="font-semibold">Week 8: Graphs Introduction</h3>
-          <p class="text-sm text-gray-700">Definitions, Eulerian-/Hamiltonian Cycles</p>
-          <div id="week8-links">
-            <a href="AnD_8_25.pdf" class="text-sky-600 hover:underline">Slides</a><br>
-            <a href="AnD_Notes8_25.pdf" class="text-sky-600 hover:underline">Notes</a>
+
+        <article class="p-5 bg-white border border-slate-200 rounded-2xl shadow-sm card-hover flex flex-col md:flex-row md:items-center justify-between gap-4">
+          <div>
+            <h3 class="font-bold text-slate-900 text-lg">Week 4: Searching & Sorting</h3>
+            <p class="text-sm text-slate-500">Linear-, Binary-search & Sort variations</p>
+          </div>
+          <div class="flex gap-2">
+            <a href="AnD_4_25.pdf" class="px-4 py-2 bg-indigo-50 text-indigo-700 rounded-lg text-sm font-bold hover:bg-indigo-100">Slides</a>
+            <a href="AnD_Notes4.pdf" class="px-4 py-2 bg-slate-100 text-slate-700 rounded-lg text-sm font-bold hover:bg-slate-200">Notes</a>
           </div>
         </article>
-        <article class="p-4 border rounded-xl bg-gray-50" id='week9'>
-          <h3 class="font-semibold">Week 9: Graph Traversal</h3>
-          <p class="text-sm text-gray-700">Directed Graphs, Topological sorting, DFS</p>
-          <div id="week9-links" style="display:none;">
-            <a href="AnD_9_25.pdf" class="text-sky-600 hover:underline">Slides</a><br>
-            <a href="AnD_Notes9_25.pdf" class="text-sky-600 hover:underline">Notes</a>
+
+        <article class="p-5 bg-white border border-slate-200 rounded-2xl shadow-sm card-hover flex flex-col md:flex-row md:items-center justify-between gap-4">
+          <div>
+            <h3 class="font-bold text-slate-900 text-lg">Week 5: Sorting Cont'd & Datastructures</h3>
+            <p class="text-sm text-slate-500">Quick- & Heap-sort, Lists, Arrays, Stacks, Queues</p>
           </div>
-        <!--</article>
-        <article class="p-4 border rounded-xl bg-gray-50" id='week5'>
-          <h3 class="font-semibold">Week 5: Sorting Cont'd, Datastructures</h3>
-          <p class="text-sm text-gray-700">Quick- & Heap-sort, Heap, (doubly-linked-) List, Array, Stack & (Priority-) Queue</p>
-          <div id="week5-links" style="display:none;">
-            <a href="AnD_5_25.pdf" class="text-sky-600 hover:underline">Slides</a><br>
-            <a href="AnD_Notes5_25.pdf" class="text-sky-600 hover:underline">Notes</a>
+          <div class="flex gap-2">
+            <a href="AnD_5_25.pdf" class="px-4 py-2 bg-indigo-50 text-indigo-700 rounded-lg text-sm font-bold hover:bg-indigo-100">Slides</a>
+            <a href="AnD_Notes5_25.pdf" class="px-4 py-2 bg-slate-100 text-slate-700 rounded-lg text-sm font-bold hover:bg-slate-200">Notes</a>
           </div>
         </article>
-        <article class="p-4 border rounded-xl bg-gray-50" id='week5'>
-          <h3 class="font-semibold">Week 5: Sorting Cont'd, Datastructures</h3>
-          <p class="text-sm text-gray-700">Quick- & Heap-sort, Heap, (doubly-linked-) List, Array, Stack & (Priority-) Queue</p>
-          <div id="week5-links" style="display:none;">
-            <a href="AnD_5_25.pdf" class="text-sky-600 hover:underline">Slides</a><br>
-            <a href="AnD_Notes5_25.pdf" class="text-sky-600 hover:underline">Notes</a>
+
+        <article class="p-5 bg-white border border-slate-200 rounded-2xl shadow-sm card-hover flex flex-col md:flex-row md:items-center justify-between gap-4" id="week9">
+          <div>
+            <h3 class="font-bold text-slate-900 text-lg">Week 9: Graph Traversal</h3>
+            <p class="text-sm text-slate-500">Directed Graphs, Topological sorting, DFS</p>
+          </div>
+          <div id="week9-links" class="flex gap-2 hidden">
+            <a href="AnD_9_25.pdf" class="px-4 py-2 bg-indigo-50 text-indigo-700 rounded-lg text-sm font-bold hover:bg-indigo-100">Slides</a>
+            <a href="AnD_Notes9_25.pdf" class="px-4 py-2 bg-slate-100 text-slate-700 rounded-lg text-sm font-bold hover:bg-slate-200">Notes</a>
           </div>
         </article>
-        <article class="p-4 border rounded-xl bg-gray-50" id='week5'>
-          <h3 class="font-semibold">Week 5: Sorting Cont'd, Datastructures</h3>
-          <p class="text-sm text-gray-700">Quick- & Heap-sort, Heap, (doubly-linked-) List, Array, Stack & (Priority-) Queue</p>
-          <div id="week5-links" style="display:none;">
-            <a href="AnD_5_25.pdf" class="text-sky-600 hover:underline">Slides</a><br>
-            <a href="AnD_Notes5_25.pdf" class="text-sky-600 hover:underline">Notes</a>
-          </div>
-        </article>-->
-        <script>
-          const releaseTime = new Date("2025-11-17T11:00:00+01:00"); // release date/time
-          const now = new Date();
-          if (now >= releaseTime) {
-            document.getElementById("week9-links").style.display = "block";
-          } else {
-            document.getElementById("week9").insertAdjacentHTML(
-              "beforeend",
-              `<p class="text-sm text-gray-500 mt-2">Materials will be available on November 17th, 11:00.</p>`
-            );
-          }
-        </script>
       </div>
     </div>
   </section>
 
-  <!-- Other Resources -->
-  <section id="script" class="max-w-5xl mx-auto p-6 md:p-8">
-    <h2 class="text-lg md:text-xl font-semibold mb-4 text-center md:text-left">Script & Additional Material</h2>
-    <ul class="list-disc list-inside space-y-2 text-sm md:text-base">
-      <li><a href="Algorithms_and_Datastructures_2025.pdf" class="text-sky-600 hover:underline">Script as of Week 7</a></li>
-      <li><a href="Runtimes.apkg" class="text-sky-600 hover:underline">ANKI Deck: Runtimes</a></li>
-      <li><a href="suchenUndSortieren.zip" class="text-sky-600 hover:underline">CODE: Searching- and Sorting Algorithms</a></li>
-      <li><a href="LinkedListDemo.java" class="text-sky-600 hover:underline">CODE: Linked List Demo</a></li>
-      <li><a href="2-3-Tree.html" class="text-sky-600 hover:underline">ANIMATION: 2-3-Trees</a></li>
-    </ul>
-  </section>
-
-  <!-- Links -->
-  <section id="links" class="bg-gray-100 py-8">
-    <div class="max-w-5xl mx-auto p-6">
-      <h2 class="text-lg md:text-xl font-semibold mb-4 text-center md:text-left">Useful Links</h2>
-      <ul class="list-disc list-inside space-y-2 text-sm md:text-base">
-        <li><a href="https://moodle-app2.let.ethz.ch/course/view.php?id=26169" class="text-sky-600 hover:underline">Course Moodle</a></li>
-        <li><a href="https://expert.ethz.ch/" class="text-sky-600 hover:underline">Code Expert</a></li>
-        <li><a href="https://leetcode.com/problemset/" class="text-sky-600 hover:underline">Leetcode</a></li>
-        <!--<li><a href="https://partici.fi/11904241" class="text-sky-600 hover:underline">Particify</a></li>-->
-      </ul>
-    </div>
-  </section>
-
-  <footer class="bg-sky-600 text-white p-4 text-center text-xs md:text-sm">
-    <p>&copy; 2025 Michelle Honegger – ETH Zürich</p>
-  </footer>
-</body>
-</html>
+  <section id="resources" class="py-16 bg-slate-100 border-y border-slate-200 px-6">
+    <div class="max-w-5xl mx-auto">
+      <h2 class="text-xl font-bold mb-8">Script & Additional Material</h2>
+      <div class="grid md:grid-cols-2 gap-6">
+        <div class="space-y-3">
+          <a href="Algorithms_and_Datastructures_2025.pdf" class="flex items-center p-4 bg-white rounded-xl border border-slate-200 hover:text-indigo-600 transition-colors">
+            <svg class="w-5 h-5 mr-3 text-indigo-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <span class="font-medium">Script (as of Week 7)</span>
+          </a>
+          <a href="Runtimes.apkg" class="flex items-center p-4 bg-white rounded-xl border border-slate-200 hover:text-indigo-600 transition-colors">
+            <svg class="w-5 h-5 mr-3 text-indigo-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <span class="font-medium">ANKI Deck
