@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Exercise Sessions – Michelle Honegger</title>
+    <title>Michael Honegger – Neuroinformatics & Machine Learning</title>
+    <meta name="description" content="Personal website of Michelle Honegger, student at ETH Zürich focusing on Algorithms and Datastructures.">
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-50 text-gray-800 font-sans">
+  <!-- Header -->
+  <header class="bg-sky-600 text-white p-4 md:p-6 shadow-md">
+    <div class="max-w-5xl mx-auto flex flex-col md:flex-row md:justify-between md:items-center gap-4">
+      <h1 class="text-xl md:text-2xl font-bold text-center md:text-left">Exercise Sessions – Michelle Honegger</h1>
+      <nav class="flex flex-wrap justify-center gap-3 text-sm md:text-base">
+        <a href="#about" class="hover:underline">About</a>
+        <a href="#courses" class="hover:underline">Courses</a>
+        <a href="#materials" class="hover:underline">Materials</a>
+        <a href="#links" class="hover:underline">Links</a>
+        <a href="#contact" class="hover:underline">Contact</a>
+      </nav>
+    </div>
+  </header>
+  
+  <section id="materials" class="bg-white py-8 shadow-inner">
+    <div class="max-w-5xl mx-auto p-6">
+      <h2 class="text-lg md:text-xl font-semibold mb-4 text-center md:text-left">Materials of Sessions</h2>
+      <div class="space-y-4">
+        <article class="p-4 border rounded-xl bg-gray-50">
+          <h3 class="font-semibold">Week 1: Introduction & Induction</h3>
+          <p class="text-sm text-gray-700">Induction, Asymptotic notation, Runtime basics, log-rules</p>
+          <a href="AnD_1_25.pdf" class="text-sky-600 hover:underline">Slides</a><br>
+          <a href="AnD_Notes1.pdf" class="text-sky-600 hover:underline">Notes</a>
+        </article>
+        <article class="p-4 border rounded-xl bg-gray-50">
+          <h3 class="font-semibold">Week 2: O-Notation</h3>
+          <p class="text-sm text-gray-700">O, Omega, Theta Notation, Summation Rules</p>
+          <a href="AnD_2_25.pdf" class="text-sky-600 hover:underline">Slides</a><br>
+          <a href="AnD_Notes_2_25.pdf" class="text-sky-600 hover:underline">Notes</a>
+          <!--<a href="game.html" class="text-sky-600 hover:underline">Guess The Password</a>-->
+        </article>
+        <article class="p-4 border rounded-xl bg-gray-50">
+          <h3 class="font-semibold">Week 3: One Problem - Many Solutions</h3>
+          <p class="text-sm text-gray-700">Maximum Subarray Sum</p>
+          <a href="AnD_3_25.pdf" class="text-sky-600 hover:underline">Slides</a><br>
+          <a href="AnD_Notes_3_25.pdf" class="text-sky-600 hover:underline">Notes</a>
+        </article>
+        <article class="p-4 border rounded-xl bg-gray-50" id="week4">
+          <h3 class="font-semibold">Week 4: Searching & Sorting</h3>
+          <p class="text-sm text-gray-700">linear-, binary-search & bubble-, insertion-, selection-, merge-sort</p>
+            <a href="AnD_4_25.pdf" class="text-sky-600 hover:underline">Slides</a><br>
+            <a href="AnD_Notes4.pdf" class="text-sky-600 hover:underline">Notes</a>
+        </article>
+        <article class="p-4 border rounded-xl bg-gray-50" id='week5'>
+          <h3 class="font-semibold">Week 5: Sorting Cont'd, Datastructures</h3>
+          <p class="text-sm text-gray-700">Quick- & Heap-sort, Heap, (doubly-linked-) List, Array, Stack & (Priority-) Queue</p>
+          <div id="week5-links">
+            <a href="AnD_5_25.pdf" class="text-sky-600 hover:underline">Slides</a><br>
+            <a href="AnD_Notes5_25.pdf" class="text-sky-600 hover:underline">Notes</a>
+          </div>
+        </article>
+        <article class="p-4 border rounded-xl bg-gray-50" id='week6'>
+          <h3 class="font-semibold">Week 6: Datastructures Cont'd, DP Probelms</h3>
+          <p class="text-sm text-gray-700">Binary Search Trees & 2-3 Trees, Fibonacci, MSS, Jump Game, LCS & Edit Distance</p>
+          <div id="week6-links">
+            <a href="AnD_6_25.pdf" class="text-sky-600 hover:underline">Slides</a><br>
+            <a href="AnD_Notes6_25.pdf" class="text-sky-600 hover:underline">Notes</a>
+          </div>
+        </article>
+        <article class="p-4 border rounded-xl bg-gray-50" id='week7'>
+          <h3 class="font-semibold">Week 7: Dynamic Programming Cont'd</h3>
+          <p class="text-sm text-gray-700">Subset Sum, Knapsack and Longest Ascending Subsequence</p>
+          <div id="week7-links">
+            <a href="AnD_7_25.pdf" class="text-sky-600 hover:underline">Slides</a><br>
+            <a href="AnD_Notes7_25.pdf" class="text-sky-600 hover:underline">Notes</a>
+          </div>
+        </article>
+        <article class="p-4 border rounded-xl bg-gray-50" id='week8'>
+          <h3 class="font-semibold">Week 8: Graphs Introduction</h3>
+          <p class="text-sm text-gray-700">Definitions, Eulerian-/Hamiltonian Cycles</p>
+          <div id="week8-links">
+            <a href="AnD_8_25.pdf" class="text-sky-600 hover:underline">Slides</a><br>
+            <a href="AnD_Notes8_25.pdf" class="text-sky-600 hover:underline">Notes</a>
+          </div>
+        </article>
+        <article class="p-4 border rounded-xl bg-gray-50" id='week9'>
+          <h3 class="font-semibold">Week 9: Graph Traversal</h3>
+          <p class="text-sm text-gray-700">Directed Graphs, Topological sorting, DFS</p>
+          <div id="week9-links" style="display:none;">
+            <a href="AnD_9_25.pdf" class="text-sky-600 hover:underline">Slides</a><br>
+            <a href="AnD_Notes9_25.pdf" class="text-sky-600 hover:underline">Notes</a>
+          </div>
+        <!--</article>
+        <article class="p-4 border rounded-xl bg-gray-50" id='week5'>
+          <h3 class="font-semibold">Week 5: Sorting Cont'd, Datastructures</h3>
+          <p class="text-sm text-gray-700">Quick- & Heap-sort, Heap, (doubly-linked-) List, Array, Stack & (Priority-) Queue</p>
+          <div id="week5-links" style="display:none;">
+            <a href="AnD_5_25.pdf" class="text-sky-600 hover:underline">Slides</a><br>
+            <a href="AnD_Notes5_25.pdf" class="text-sky-600 hover:underline">Notes</a>
+          </div>
+        </article>
+        <article class="p-4 border rounded-xl bg-gray-50" id='week5'>
+          <h3 class="font-semibold">Week 5: Sorting Cont'd, Datastructures</h3>
+          <p class="text-sm text-gray-700">Quick- & Heap-sort, Heap, (doubly-linked-) List, Array, Stack & (Priority-) Queue</p>
+          <div id="week5-links" style="display:none;">
+            <a href="AnD_5_25.pdf" class="text-sky-600 hover:underline">Slides</a><br>
+            <a href="AnD_Notes5_25.pdf" class="text-sky-600 hover:underline">Notes</a>
+          </div>
+        </article>
+        <article class="p-4 border rounded-xl bg-gray-50" id='week5'>
+          <h3 class="font-semibold">Week 5: Sorting Cont'd, Datastructures</h3>
+          <p class="text-sm text-gray-700">Quick- & Heap-sort, Heap, (doubly-linked-) List, Array, Stack & (Priority-) Queue</p>
+          <div id="week5-links" style="display:none;">
+            <a href="AnD_5_25.pdf" class="text-sky-600 hover:underline">Slides</a><br>
+            <a href="AnD_Notes5_25.pdf" class="text-sky-600 hover:underline">Notes</a>
+          </div>
+        </article>-->
+        <script>
+          const releaseTime = new Date("2025-11-17T11:00:00+01:00"); // release date/time
+          const now = new Date();
+          if (now >= releaseTime) {
+            document.getElementById("week9-links").style.display = "block";
+          } else {
+            document.getElementById("week9").insertAdjacentHTML(
+              "beforeend",
+              `<p class="text-sm text-gray-500 mt-2">Materials will be available on November 17th, 11:00.</p>`
+            );
+          }
+        </script>
+      </div>
+    </div>
+  </section>
+
+  <!-- Other Resources -->
+  <section id="script" class="max-w-5xl mx-auto p-6 md:p-8">
+    <h2 class="text-lg md:text-xl font-semibold mb-4 text-center md:text-left">Script & Additional Material</h2>
+    <ul class="list-disc list-inside space-y-2 text-sm md:text-base">
+      <li><a href="Algorithms_and_Datastructures_2025.pdf" class="text-sky-600 hover:underline">Script as of Week 7</a></li>
+      <li><a href="Runtimes.apkg" class="text-sky-600 hover:underline">ANKI Deck: Runtimes</a></li>
+      <li><a href="suchenUndSortieren.zip" class="text-sky-600 hover:underline">CODE: Searching- and Sorting Algorithms</a></li>
+      <li><a href="LinkedListDemo.java" class="text-sky-600 hover:underline">CODE: Linked List Demo</a></li>
+      <li><a href="2-3-Tree.html" class="text-sky-600 hover:underline">ANIMATION: 2-3-Trees</a></li>
+    </ul>
+  </section>
+
+  <!-- Links -->
+  <section id="links" class="bg-gray-100 py-8">
+    <div class="max-w-5xl mx-auto p-6">
+      <h2 class="text-lg md:text-xl font-semibold mb-4 text-center md:text-left">Useful Links</h2>
+      <ul class="list-disc list-inside space-y-2 text-sm md:text-base">
+        <li><a href="https://moodle-app2.let.ethz.ch/course/view.php?id=26169" class="text-sky-600 hover:underline">Course Moodle</a></li>
+        <li><a href="https://expert.ethz.ch/" class="text-sky-600 hover:underline">Code Expert</a></li>
+        <li><a href="https://leetcode.com/problemset/" class="text-sky-600 hover:underline">Leetcode</a></li>
+        <!--<li><a href="https://partici.fi/11904241" class="text-sky-600 hover:underline">Particify</a></li>-->
+      </ul>
+    </div>
+  </section>
