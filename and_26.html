@@ -15,6 +15,9 @@
     .card-hover:hover { transform: translateY(-2px); transition: all 0.2s ease; }
   </style>
 </head>
+
+<script> const releaseTime = new Date("2026-09-21T09:00:00Z"); function showMaterials() { if (new Date() >= releaseTime) { document.querySelectorAll(".material-link").forEach(link => { link.classList.remove("hidden"); }); } } showMaterials(); </script>
+
 <body class="bg-slate-50 text-slate-800 leading-relaxed">
 
   <header class="fixed top-0 w-full z-50 glass">
@@ -61,8 +64,8 @@
             <p class="text-sm text-slate-500">Induction, Asymptotic notation, Runtime basics, log-rules</p>
           </div>
           <div class="flex gap-2">
-            <a href="AnD_Slides/AnD_1_25.pdf" class="px-4 py-2 bg-indigo-50 text-indigo-700 rounded-lg text-sm font-bold hover:bg-indigo-100">Slides</a>
-            <a href="AnD_Notes/AnD_Notes1.pdf" class="px-4 py-2 bg-slate-100 text-slate-700 rounded-lg text-sm font-bold hover:bg-slate-200">Notes</a>
+            <a href="AnD_Slides/AnD_1_26.pdf" class="material-link hidden px-4 py-2 bg-indigo-50 text-indigo-700 rounded-lg text-sm font-bold hover:bg-indigo-100">Slides</a>
+            <a href="AnD_Notes/AnD_Notes1.pdf" class="material-link hidden px-4 py-2 bg-slate-100 text-slate-700 rounded-lg text-sm font-bold hover:bg-slate-200">>Notes</a>
           </div>
         </article>
 
