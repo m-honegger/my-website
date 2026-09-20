@@ -16,7 +16,23 @@
   </style>
 </head>
 
-<script> const releaseTime = new Date("2026-09-21T09:00:00Z"); function showMaterials() { if (new Date() >= releaseTime) { document.querySelectorAll(".material-link").forEach(link => { link.classList.remove("hidden"); }); } } showMaterials(); </script>
+<script>
+    const releaseTime = new Date("2026-09-20T19:00:02Z");
+  
+    function showMaterials() {
+      const released = new Date() >= releaseTime;
+  
+      document.querySelectorAll(".material-link").forEach(link => {
+        link.classList.toggle("hidden", !released);
+      });
+  
+      document.querySelectorAll(".material-notice").forEach(notice => {
+        notice.classList.toggle("hidden", released);
+      });
+    }
+  
+    showMaterials();
+  </script>
 
 <body class="bg-slate-50 text-slate-800 leading-relaxed">
 
@@ -63,9 +79,21 @@
             <h3 class="font-bold text-slate-900 text-lg">Week 1: Introduction & Induction</h3>
             <p class="text-sm text-slate-500">Induction, Asymptotic notation, Runtime basics, log-rules</p>
           </div>
-          <div class="flex gap-2">
-            <a href="AnD_Slides/AnD_1_26.pdf" class="material-link hidden px-4 py-2 bg-indigo-50 text-indigo-700 rounded-lg text-sm font-bold hover:bg-indigo-100">Slides</a>
-            <a href="AnD_Notes/AnD_Notes1.pdf" class="material-link hidden px-4 py-2 bg-slate-100 text-slate-700 rounded-lg text-sm font-bold hover:bg-slate-200">>Notes</a>
+          <div class="flex flex-col md:items-end gap-2">
+            <span class="material-notice text-xs text-slate-400">
+              Materials available Monday at 11:00
+            </span>
+          
+            <div class="flex gap-2">
+              <a href="AnD_Slides/AnD_1_26.pdf"
+                 class="material-link hidden px-4 py-2 bg-indigo-50 text-indigo-700 rounded-lg text-sm font-bold hover:bg-indigo-100">
+                Slides
+              </a>
+              <a href="AnD_Notes/AnD_Notes1.pdf"
+                 class="material-link hidden px-4 py-2 bg-slate-100 text-slate-700 rounded-lg text-sm font-bold hover:bg-slate-200">
+                Notes
+              </a>
+            </div>
           </div>
         </article>
 
