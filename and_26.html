@@ -17,7 +17,8 @@
 </head>
 
 <script>
-    const releaseTime = new Date("2026-09-20T09:00:00Z");
+    // Monday 28 Sep 2026, 11:00 Zurich time (CEST, UTC+2)
+    const releaseTime = new Date("2026-09-28T11:00:00+02:00");
   
     function showMaterials() {
       const released = new Date() >= releaseTime;
@@ -31,7 +32,8 @@
       });
     }
   
-    showMaterials();
+    // Run once the page has loaded, so the links exist when we look for them
+    document.addEventListener("DOMContentLoaded", showMaterials);
   </script>
 
 <body class="bg-slate-50 text-slate-800 leading-relaxed">
@@ -79,17 +81,25 @@
             <h3 class="font-bold text-slate-900 text-lg">Week 1: Introduction & Induction</h3>
             <p class="text-sm text-slate-500">Induction, Asymptotic notation, Runtime basics, log-rules</p>
           </div>
+          <div class="flex gap-2">
+            <a href="AnD_Slides/AnD_1_26.pdf" class="px-4 py-2 bg-indigo-50 text-indigo-700 rounded-lg text-sm font-bold hover:bg-indigo-100">Slides</a>
+            <a href="AnD_Notes/AnD_Notes1.pdf" class="px-4 py-2 bg-slate-100 text-slate-700 rounded-lg text-sm font-bold hover:bg-slate-200">Notes</a>
+          </div>
+        </article>
+
+        <article class="p-5 bg-white border border-slate-200 rounded-2xl shadow-sm card-hover flex flex-col md:flex-row md:items-center justify-between gap-4">
+          <div>
+            <h3 class="font-bold text-slate-900 text-lg">Week 2: O-Notation</h3>
+            <p class="text-sm text-slate-500">O, Omega, Theta Notation, Summation Rules</p>
+          </div>
           <div class="flex flex-col md:items-end gap-2">
-            <span class="material-notice text-xs text-slate-400">
-              Materials available Monday at 11:00
-            </span>
-          
+            <p class="material-notice text-sm text-slate-400 italic">Available Mon 28 Sep, 11:00</p>
             <div class="flex gap-2">
-              <a href="AnD_Slides/AnD_1_26.pdf"
+              <a href="AnD_Slides/AnD_2_26.pdf"
                  class="material-link hidden px-4 py-2 bg-indigo-50 text-indigo-700 rounded-lg text-sm font-bold hover:bg-indigo-100">
                 Slides
               </a>
-              <a href="AnD_Notes/AnD_Notes1.pdf"
+              <a href="AnD_Notes/AnD_Notes_2_25.pdf"
                  class="material-link hidden px-4 py-2 bg-slate-100 text-slate-700 rounded-lg text-sm font-bold hover:bg-slate-200">
                 Notes
               </a>
@@ -97,18 +107,7 @@
           </div>
         </article>
 
-       <!--<article class="p-5 bg-white border border-slate-200 rounded-2xl shadow-sm card-hover flex flex-col md:flex-row md:items-center justify-between gap-4">
-          <div>
-            <h3 class="font-bold text-slate-900 text-lg">Week 2: O-Notation</h3>
-            <p class="text-sm text-slate-500">O, Omega, Theta Notation, Summation Rules</p>
-          </div>
-          <div class="flex gap-2">
-            <a href="AnD_Slides/AnD_2_25.pdf" class="px-4 py-2 bg-indigo-50 text-indigo-700 rounded-lg text-sm font-bold hover:bg-indigo-100">Slides</a>
-            <a href="AnD_Notes/AnD_Notes_2_25.pdf" class="px-4 py-2 bg-slate-100 text-slate-700 rounded-lg text-sm font-bold hover:bg-slate-200">Notes</a>
-          </div>
-        </article>
-
-        <article class="p-5 bg-white border border-slate-200 rounded-2xl shadow-sm card-hover flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <!--<article class="p-5 bg-white border border-slate-200 rounded-2xl shadow-sm card-hover flex flex-col md:flex-row md:items-center justify-between gap-4">
           <div>
             <h3 class="font-bold text-slate-900 text-lg">Week 3: One Problem - Many Solutions</h3>
             <p class="text-sm text-slate-500">Maximum Subarray Sum</p>
@@ -276,3 +275,5 @@
       &copy; 2026 Michelle Honegger
     </div>
   </footer>
+</body>
+</html>
