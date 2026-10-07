@@ -16,26 +16,6 @@
   </style>
 </head>
 
-<script>
-    // Monday 28 Sep 2026, 11:00 Zurich time (CEST, UTC+2)
-    const releaseTime = new Date("2026-09-28T11:00:00+02:00");
-  
-    function showMaterials() {
-      const released = new Date() >= releaseTime;
-  
-      document.querySelectorAll(".material-link").forEach(link => {
-        link.classList.toggle("hidden", !released);
-      });
-  
-      document.querySelectorAll(".material-notice").forEach(notice => {
-        notice.classList.toggle("hidden", released);
-      });
-    }
-  
-    // Run once the page has loaded, so the links exist when we look for them
-    document.addEventListener("DOMContentLoaded", showMaterials);
-  </script>
-
 <body class="bg-slate-50 text-slate-800 leading-relaxed">
 
   <header class="fixed top-0 w-full z-50 glass">
@@ -74,7 +54,17 @@
         <svg class="w-5 h-5 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
         Weekly Sessions
       </h2>
-      
+
+      <!--
+        HOW THE RELEASE WORKS
+        - A card with data-release unlocks its Slides/Notes at that time (Zurich time).
+        - A card only appears once the card before it has unlocked, so students
+          see every released week plus the next upcoming one (with "Available ...").
+        - The "Available ..." text is filled in automatically from data-release.
+        - Offset: +02:00 until Sun 25 Oct (summer time), +01:00 after (winter time).
+        - To skip a week (e.g. a holiday), just change that card's date and the ones after it.
+      -->
+
       <div class="grid gap-4">
         <article class="p-5 bg-white border border-slate-200 rounded-2xl shadow-sm card-hover flex flex-col md:flex-row md:items-center justify-between gap-4">
           <div>
@@ -87,145 +77,173 @@
           </div>
         </article>
 
-        <article class="p-5 bg-white border border-slate-200 rounded-2xl shadow-sm card-hover flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <article data-release="2026-09-28T11:00:00+02:00" class="hidden p-5 bg-white border border-slate-200 rounded-2xl shadow-sm card-hover flex flex-col md:flex-row md:items-center justify-between gap-4">
           <div>
             <h3 class="font-bold text-slate-900 text-lg">Week 2: O-Notation</h3>
             <p class="text-sm text-slate-500">O, Omega, Theta Notation, Summation Rules</p>
           </div>
           <div class="flex flex-col md:items-end gap-2">
-            <p class="material-notice text-sm text-slate-400 italic">Available Mon 28 Sep, 11:00</p>
+            <p class="material-notice text-sm text-slate-400 italic"></p>
             <div class="flex gap-2">
-              <a href="AnD_Slides/AnD_2_26.pdf"
-                 class="material-link hidden px-4 py-2 bg-indigo-50 text-indigo-700 rounded-lg text-sm font-bold hover:bg-indigo-100">
-                Slides
-              </a>
-              <a href="AnD_Notes/AnD_Notes_2_25.pdf"
-                 class="material-link hidden px-4 py-2 bg-slate-100 text-slate-700 rounded-lg text-sm font-bold hover:bg-slate-200">
-                Notes
-              </a>
+              <a href="AnD_Slides/AnD_2_26.pdf" class="material-link hidden px-4 py-2 bg-indigo-50 text-indigo-700 rounded-lg text-sm font-bold hover:bg-indigo-100">Slides</a>
+              <a href="AnD_Notes/AnD_Notes_2_25.pdf" class="material-link hidden px-4 py-2 bg-slate-100 text-slate-700 rounded-lg text-sm font-bold hover:bg-slate-200">Notes</a>
             </div>
           </div>
         </article>
 
-        <!--<article class="p-5 bg-white border border-slate-200 rounded-2xl shadow-sm card-hover flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <article data-release="2026-10-05T11:00:00+02:00" class="hidden p-5 bg-white border border-slate-200 rounded-2xl shadow-sm card-hover flex flex-col md:flex-row md:items-center justify-between gap-4">
           <div>
             <h3 class="font-bold text-slate-900 text-lg">Week 3: One Problem - Many Solutions</h3>
             <p class="text-sm text-slate-500">Maximum Subarray Sum</p>
           </div>
-          <div class="flex gap-2">
-            <a href="AnD_Slides/AnD_3_25.pdf" class="px-4 py-2 bg-indigo-50 text-indigo-700 rounded-lg text-sm font-bold hover:bg-indigo-100">Slides</a>
-            <a href="AnD_Notes/AnD_Notes_3_25.pdf" class="px-4 py-2 bg-slate-100 text-slate-700 rounded-lg text-sm font-bold hover:bg-slate-200">Notes</a>
+          <div class="flex flex-col md:items-end gap-2">
+            <p class="material-notice text-sm text-slate-400 italic"></p>
+            <div class="flex gap-2">
+              <a href="AnD_Slides/AnD_3_26.pdf" class="material-link hidden px-4 py-2 bg-indigo-50 text-indigo-700 rounded-lg text-sm font-bold hover:bg-indigo-100">Slides</a>
+              <a href="AnD_Notes/AnD_Notes_3_25.pdf" class="material-link hidden px-4 py-2 bg-slate-100 text-slate-700 rounded-lg text-sm font-bold hover:bg-slate-200">Notes</a>
+            </div>
           </div>
         </article>
 
-        <article class="p-5 bg-white border border-slate-200 rounded-2xl shadow-sm card-hover flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <article data-release="2026-10-12T11:00:00+02:00" class="hidden p-5 bg-white border border-slate-200 rounded-2xl shadow-sm card-hover flex flex-col md:flex-row md:items-center justify-between gap-4">
           <div>
             <h3 class="font-bold text-slate-900 text-lg">Week 4: Searching & Sorting</h3>
             <p class="text-sm text-slate-500">Linear-, Binary-search & Sort variations</p>
           </div>
-          <div class="flex gap-2">
-            <a href="AnD_Slides/AnD_4_25.pdf" class="px-4 py-2 bg-indigo-50 text-indigo-700 rounded-lg text-sm font-bold hover:bg-indigo-100">Slides</a>
-            <a href="AnD_Notes/AnD_Notes4.pdf" class="px-4 py-2 bg-slate-100 text-slate-700 rounded-lg text-sm font-bold hover:bg-slate-200">Notes</a>
+          <div class="flex flex-col md:items-end gap-2">
+            <p class="material-notice text-sm text-slate-400 italic"></p>
+            <div class="flex gap-2">
+              <a href="AnD_Slides/AnD_4_25.pdf" class="material-link hidden px-4 py-2 bg-indigo-50 text-indigo-700 rounded-lg text-sm font-bold hover:bg-indigo-100">Slides</a>
+              <a href="AnD_Notes/AnD_Notes4.pdf" class="material-link hidden px-4 py-2 bg-slate-100 text-slate-700 rounded-lg text-sm font-bold hover:bg-slate-200">Notes</a>
+            </div>
           </div>
         </article>
 
-        <article class="p-5 bg-white border border-slate-200 rounded-2xl shadow-sm card-hover flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <article data-release="2026-10-19T11:00:00+02:00" class="hidden p-5 bg-white border border-slate-200 rounded-2xl shadow-sm card-hover flex flex-col md:flex-row md:items-center justify-between gap-4">
           <div>
             <h3 class="font-bold text-slate-900 text-lg">Week 5: Sorting Cont'd & Datastructures</h3>
             <p class="text-sm text-slate-500">Quick- & Heap-sort, Lists, Arrays, Stacks, Queues</p>
           </div>
-          <div class="flex gap-2">
-            <a href="AnD_Slides/AnD_5_25.pdf" class="px-4 py-2 bg-indigo-50 text-indigo-700 rounded-lg text-sm font-bold hover:bg-indigo-100">Slides</a>
-            <a href="AnD_Notes/AnD_Notes5_25.pdf" class="px-4 py-2 bg-slate-100 text-slate-700 rounded-lg text-sm font-bold hover:bg-slate-200">Notes</a>
+          <div class="flex flex-col md:items-end gap-2">
+            <p class="material-notice text-sm text-slate-400 italic"></p>
+            <div class="flex gap-2">
+              <a href="AnD_Slides/AnD_5_25.pdf" class="material-link hidden px-4 py-2 bg-indigo-50 text-indigo-700 rounded-lg text-sm font-bold hover:bg-indigo-100">Slides</a>
+              <a href="AnD_Notes/AnD_Notes5_25.pdf" class="material-link hidden px-4 py-2 bg-slate-100 text-slate-700 rounded-lg text-sm font-bold hover:bg-slate-200">Notes</a>
+            </div>
           </div>
         </article>
 
-        <article class="p-5 bg-white border border-slate-200 rounded-2xl shadow-sm card-hover flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <!-- From here on: winter time, so the offset is +01:00 -->
+        <article data-release="2026-10-26T11:00:00+01:00" class="hidden p-5 bg-white border border-slate-200 rounded-2xl shadow-sm card-hover flex flex-col md:flex-row md:items-center justify-between gap-4">
           <div>
             <h3 class="font-bold text-slate-900 text-lg">Week 6: Abstract Datatypes, Dynamic Programming I</h3>
             <p class="text-sm text-slate-500">Binary Trees, 2-3-Trees, MSS, Jump Game, LCS, Edit Distance</p>
           </div>
-          <div class="flex gap-2">
-            <a href="AnD_Slides/AnD_6_25.pdf" class="px-4 py-2 bg-indigo-50 text-indigo-700 rounded-lg text-sm font-bold hover:bg-indigo-100">Slides</a>
-            <a href="AnD_Notes/AnD_Notes6_25.pdf" class="px-4 py-2 bg-slate-100 text-slate-700 rounded-lg text-sm font-bold hover:bg-slate-200">Notes</a>
+          <div class="flex flex-col md:items-end gap-2">
+            <p class="material-notice text-sm text-slate-400 italic"></p>
+            <div class="flex gap-2">
+              <a href="AnD_Slides/AnD_6_25.pdf" class="material-link hidden px-4 py-2 bg-indigo-50 text-indigo-700 rounded-lg text-sm font-bold hover:bg-indigo-100">Slides</a>
+              <a href="AnD_Notes/AnD_Notes6_25.pdf" class="material-link hidden px-4 py-2 bg-slate-100 text-slate-700 rounded-lg text-sm font-bold hover:bg-slate-200">Notes</a>
+            </div>
           </div>
         </article>
 
-        <article class="p-5 bg-white border border-slate-200 rounded-2xl shadow-sm card-hover flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <article data-release="2026-11-02T11:00:00+01:00" class="hidden p-5 bg-white border border-slate-200 rounded-2xl shadow-sm card-hover flex flex-col md:flex-row md:items-center justify-between gap-4">
           <div>
             <h3 class="font-bold text-slate-900 text-lg">Week 7: Dynamic Programming II</h3>
             <p class="text-sm text-slate-500">Subset Sum, Knapsack, LAS</p>
           </div>
-          <div class="flex gap-2">
-            <a href="AnD_Slides/AnD_7_25.pdf" class="px-4 py-2 bg-indigo-50 text-indigo-700 rounded-lg text-sm font-bold hover:bg-indigo-100">Slides</a>
-            <a href="AnD_Notes/AnD_Notes7_25.pdf" class="px-4 py-2 bg-slate-100 text-slate-700 rounded-lg text-sm font-bold hover:bg-slate-200">Notes</a>
+          <div class="flex flex-col md:items-end gap-2">
+            <p class="material-notice text-sm text-slate-400 italic"></p>
+            <div class="flex gap-2">
+              <a href="AnD_Slides/AnD_7_25.pdf" class="material-link hidden px-4 py-2 bg-indigo-50 text-indigo-700 rounded-lg text-sm font-bold hover:bg-indigo-100">Slides</a>
+              <a href="AnD_Notes/AnD_Notes7_25.pdf" class="material-link hidden px-4 py-2 bg-slate-100 text-slate-700 rounded-lg text-sm font-bold hover:bg-slate-200">Notes</a>
+            </div>
           </div>
         </article>
 
-        <article class="p-5 bg-white border border-slate-200 rounded-2xl shadow-sm card-hover flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <article data-release="2026-11-09T11:00:00+01:00" class="hidden p-5 bg-white border border-slate-200 rounded-2xl shadow-sm card-hover flex flex-col md:flex-row md:items-center justify-between gap-4">
           <div>
             <h3 class="font-bold text-slate-900 text-lg">Week 8: Introduction to Graphs</h3>
             <p class="text-sm text-slate-500">Notation, Eulerian Walks, Hamiltonian Cycles</p>
           </div>
-          <div class="flex gap-2">
-            <a href="AnD_Slides/AnD_8_25.pdf" class="px-4 py-2 bg-indigo-50 text-indigo-700 rounded-lg text-sm font-bold hover:bg-indigo-100">Slides</a>
-            <a href="AnD_Notes/AnD_Notes8_25.pdf" class="px-4 py-2 bg-slate-100 text-slate-700 rounded-lg text-sm font-bold hover:bg-slate-200">Notes</a>
+          <div class="flex flex-col md:items-end gap-2">
+            <p class="material-notice text-sm text-slate-400 italic"></p>
+            <div class="flex gap-2">
+              <a href="AnD_Slides/AnD_8_25.pdf" class="material-link hidden px-4 py-2 bg-indigo-50 text-indigo-700 rounded-lg text-sm font-bold hover:bg-indigo-100">Slides</a>
+              <a href="AnD_Notes/AnD_Notes8_25.pdf" class="material-link hidden px-4 py-2 bg-slate-100 text-slate-700 rounded-lg text-sm font-bold hover:bg-slate-200">Notes</a>
+            </div>
           </div>
         </article>
 
-        <article class="p-5 bg-white border border-slate-200 rounded-2xl shadow-sm card-hover flex flex-col md:flex-row md:items-center justify-between gap-4" id="week9">
+        <article data-release="2026-11-16T11:00:00+01:00" class="hidden p-5 bg-white border border-slate-200 rounded-2xl shadow-sm card-hover flex flex-col md:flex-row md:items-center justify-between gap-4">
           <div>
             <h3 class="font-bold text-slate-900 text-lg">Week 9: Graph Traversal</h3>
             <p class="text-sm text-slate-500">Directed Graphs, Topological sorting, DFS</p>
           </div>
-          <div id="week9-links" class="flex gap-2 hidden">
-            <a href="AnD_Slides/AnD_9_25.pdf" class="px-4 py-2 bg-indigo-50 text-indigo-700 rounded-lg text-sm font-bold hover:bg-indigo-100">Slides</a>
-            <a href="AnD_Notes/AnD_Notes9_25.pdf" class="px-4 py-2 bg-slate-100 text-slate-700 rounded-lg text-sm font-bold hover:bg-slate-200">Notes</a>
+          <div class="flex flex-col md:items-end gap-2">
+            <p class="material-notice text-sm text-slate-400 italic"></p>
+            <div class="flex gap-2">
+              <a href="AnD_Slides/AnD_9_25.pdf" class="material-link hidden px-4 py-2 bg-indigo-50 text-indigo-700 rounded-lg text-sm font-bold hover:bg-indigo-100">Slides</a>
+              <a href="AnD_Notes/AnD_Notes9_25.pdf" class="material-link hidden px-4 py-2 bg-slate-100 text-slate-700 rounded-lg text-sm font-bold hover:bg-slate-200">Notes</a>
+            </div>
           </div>
         </article>
 
-        <article class="p-5 bg-white border border-slate-200 rounded-2xl shadow-sm card-hover flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <article data-release="2026-11-23T11:00:00+01:00" class="hidden p-5 bg-white border border-slate-200 rounded-2xl shadow-sm card-hover flex flex-col md:flex-row md:items-center justify-between gap-4">
           <div>
             <h3 class="font-bold text-slate-900 text-lg">Week 10: Shortest Paths I</h3>
             <p class="text-sm text-slate-500">BFS, Dijkstra</p>
           </div>
-          <div class="flex gap-2">
-            <a href="AnD_Slides/AnD_10_25.pdf" class="px-4 py-2 bg-indigo-50 text-indigo-700 rounded-lg text-sm font-bold hover:bg-indigo-100">Slides</a>
+          <div class="flex flex-col md:items-end gap-2">
+            <p class="material-notice text-sm text-slate-400 italic"></p>
+            <div class="flex gap-2">
+              <a href="AnD_Slides/AnD_10_25.pdf" class="material-link hidden px-4 py-2 bg-indigo-50 text-indigo-700 rounded-lg text-sm font-bold hover:bg-indigo-100">Slides</a>
+            </div>
           </div>
         </article>
 
-        <article class="p-5 bg-white border border-slate-200 rounded-2xl shadow-sm card-hover flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <article data-release="2026-11-30T11:00:00+01:00" class="hidden p-5 bg-white border border-slate-200 rounded-2xl shadow-sm card-hover flex flex-col md:flex-row md:items-center justify-between gap-4">
           <div>
             <h3 class="font-bold text-slate-900 text-lg">Week 11: Shortest Paths II, MSTs I</h3>
             <p class="text-sm text-slate-500">Bellman Ford, Boruvka, Prim</p>
           </div>
-          <div class="flex gap-2">
-            <a href="AnD_Slides/AnD_11_25.pdf" class="px-4 py-2 bg-indigo-50 text-indigo-700 rounded-lg text-sm font-bold hover:bg-indigo-100">Slides</a>
+          <div class="flex flex-col md:items-end gap-2">
+            <p class="material-notice text-sm text-slate-400 italic"></p>
+            <div class="flex gap-2">
+              <a href="AnD_Slides/AnD_11_25.pdf" class="material-link hidden px-4 py-2 bg-indigo-50 text-indigo-700 rounded-lg text-sm font-bold hover:bg-indigo-100">Slides</a>
+            </div>
           </div>
         </article>
 
-        <article class="p-5 bg-white border border-slate-200 rounded-2xl shadow-sm card-hover flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <article data-release="2026-12-07T11:00:00+01:00" class="hidden p-5 bg-white border border-slate-200 rounded-2xl shadow-sm card-hover flex flex-col md:flex-row md:items-center justify-between gap-4">
           <div>
             <h3 class="font-bold text-slate-900 text-lg">Week 12: MSTs II, Semester Recap I</h3>
             <p class="text-sm text-slate-500">Kruskal</p>
           </div>
-          <div class="flex gap-2">
-            <a href="AnD_Slides/AnD_12_25.pdf" class="px-4 py-2 bg-indigo-50 text-indigo-700 rounded-lg text-sm font-bold hover:bg-indigo-100">Slides</a>
+          <div class="flex flex-col md:items-end gap-2">
+            <p class="material-notice text-sm text-slate-400 italic"></p>
+            <div class="flex gap-2">
+              <a href="AnD_Slides/AnD_12_25.pdf" class="material-link hidden px-4 py-2 bg-indigo-50 text-indigo-700 rounded-lg text-sm font-bold hover:bg-indigo-100">Slides</a>
+            </div>
           </div>
         </article>
 
-        <article class="p-5 bg-white border border-slate-200 rounded-2xl shadow-sm card-hover flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <article data-release="2026-12-14T11:00:00+01:00" class="hidden p-5 bg-white border border-slate-200 rounded-2xl shadow-sm card-hover flex flex-col md:flex-row md:items-center justify-between gap-4">
           <div>
             <h3 class="font-bold text-slate-900 text-lg">Week 13: All-to-All Shortest Path, Semester Recap II</h3>
             <p class="text-sm text-slate-500">Floyd-Warshall, Johnson</p>
           </div>
-          <div class="flex gap-2">
-            <a href="AnD_Slides/AnD_13_25.pdf" class="px-4 py-2 bg-indigo-50 text-indigo-700 rounded-lg text-sm font-bold hover:bg-indigo-100">Slides</a>
+          <div class="flex flex-col md:items-end gap-2">
+            <p class="material-notice text-sm text-slate-400 italic"></p>
+            <div class="flex gap-2">
+              <a href="AnD_Slides/AnD_13_25.pdf" class="material-link hidden px-4 py-2 bg-indigo-50 text-indigo-700 rounded-lg text-sm font-bold hover:bg-indigo-100">Slides</a>
+            </div>
           </div>
         </article>
       </div>
     </div>
-  </section>-->
+  </section>
 
   <section id="resources" class="py-16 bg-slate-100 border-y border-slate-200 px-6">
     <div class="max-w-5xl mx-auto">
@@ -237,11 +255,11 @@
             <svg class="w-5 h-5 mr-3 text-indigo-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
             <span class="font-medium group-hover:text-indigo-600">Inofficial Script</span>
           </a>
-          <!--<a href="Runtimes.apkg" class="flex items-center p-4 bg-white rounded-xl border border-slate-200 hover:border-indigo-300 hover:shadow-md transition-all group">
+          <a href="Runtimes.apkg" class="flex items-center p-4 bg-white rounded-xl border border-slate-200 hover:border-indigo-300 hover:shadow-md transition-all group">
             <svg class="w-5 h-5 mr-3 text-indigo-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
             <span class="font-medium group-hover:text-indigo-600">ANKI Deck: Runtimes</span>
           </a>
-          <a href="suchenUndSortieren.zip" class="flex items-center p-4 bg-white rounded-xl border border-slate-200 hover:border-indigo-300 hover:shadow-md transition-all group">
+          <!--<a href="suchenUndSortieren.zip" class="flex items-center p-4 bg-white rounded-xl border border-slate-200 hover:border-indigo-300 hover:shadow-md transition-all group">
             <svg class="w-5 h-5 mr-3 text-indigo-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
             <span class="font-medium group-hover:text-indigo-600">CODE: Searching & Sorting</span>
           </a>
@@ -252,9 +270,9 @@
           <a href="2-3-Tree.html" class="flex items-center p-4 bg-white rounded-xl border border-slate-200 hover:border-indigo-300 hover:shadow-md transition-all group">
             <svg class="w-5 h-5 mr-3 text-indigo-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" stroke-width="2"/><path d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
             <span class="font-medium group-hover:text-indigo-600">ANIMATION: 2-3-Trees</span>
-          </a>
+          </a>-->
         </div>
-      </div>-->
+      </div>
     </div>
   </section>
 
@@ -275,5 +293,52 @@
       &copy; 2026 Michelle Honegger
     </div>
   </footer>
+
+  <script>
+    // Weekly release: see the "HOW THE RELEASE WORKS" note above the session cards.
+    (function () {
+      const MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+      const zurichTime = new Intl.DateTimeFormat("en-GB", {
+        timeZone: "Europe/Zurich",
+        weekday: "short", day: "numeric", month: "numeric",
+        hour: "2-digit", minute: "2-digit", hourCycle: "h23"
+      });
+
+      // e.g. "Available Mon 5 Oct, 11:00"
+      function availableLabel(date) {
+        const p = {};
+        zurichTime.formatToParts(date).forEach(part => { p[part.type] = part.value; });
+        return `Available ${p.weekday} ${Number(p.day)} ${MONTHS[Number(p.month) - 1]}, ${p.hour}:${p.minute}`;
+      }
+
+      function updateSessions() {
+        const now = new Date();
+        let previousReleased = true; // Week 1 is always out
+
+        document.querySelectorAll("article[data-release]").forEach(card => {
+          const releaseTime = new Date(card.dataset.release);
+          const released = now >= releaseTime;
+
+          // Show the card only once the week before it has been released
+          card.classList.toggle("hidden", !previousReleased);
+
+          card.querySelectorAll(".material-link").forEach(link => {
+            link.classList.toggle("hidden", !released);
+          });
+
+          card.querySelectorAll(".material-notice").forEach(notice => {
+            notice.textContent = availableLabel(releaseTime);
+            notice.classList.toggle("hidden", released);
+          });
+
+          previousReleased = released;
+        });
+      }
+
+      updateSessions();
+      // Re-check every 30 s, so a page left open unlocks at 11:00 without a refresh
+      setInterval(updateSessions, 30000);
+    })();
+  </script>
 </body>
 </html>
